@@ -192,8 +192,18 @@ async function playRaceEngine(character1, character2){
                 diceResult2,
                 character2.PODER
             );
-            
-            // criação do if ternário - que substitui todo o codigo comentado abaixo - o resultado seria o mesmo
+             // reduzindo a implementação de if ternário comentado abaixo para uma implementação de ifs normais de menor tamanho
+
+             if( powerResult1 > powerResult2 && character2.PONTOS > 0) {
+                console.log(`${character1.NOME} venceu o confronto! ${character2.NOME} perdeu um ponto 🐢`);
+                character2.PONTOS --;
+             }
+             if( powerResult2 > powerResult1 && character1.PONTOS > 0) {
+                console.log(`${character2.NOME} venceu o confronto! ${character1.NOME} perdeu um ponto 🐢`);
+                character1.PONTOS --;
+             }
+
+            /** criação do if ternário - que substitui todo o codigo comentado abaixo - o resultado seria o mesmo
             // o codigo singnifica " pegando o resultado de pontos do character2 e diminuir um ponto do resultado (-=)
             // se o resultado do jogador1 for maior e se a pontuação do jogador2 for maior que zero 
             // caso não!! fazer uma segunda verificação (&&) que seria retornar o valor zero, ou seja nao alterar nada"
@@ -203,6 +213,8 @@ async function playRaceEngine(character1, character2){
             character1.PONTOS -=
                 powerResult2 > powerResult1 && character1.PONTOS > 0 ? 1 : 0;
             console.log(powerResult2 === powerResult1 ? "Confronto empatado! Nenhum ponto foi perdido!" : "");
+
+            /*fim da criação do if ternário
         /*
             // inicio da função de verificação para  ver se deu empate ou vencedores
             if (powerResult1 > powerResult2){
@@ -237,7 +249,18 @@ async function playRaceEngine(character1, character2){
          console.log("______________________________________");   
         }
     }
+    // função declarar vencedor
+    async function dclareWinner(character1, character2) {
+    console.log("Resultado Final:");
+    console.log(`${character1.NOME}: ${character1.PONTOS} ponto(s)`);
+    console.log(`${character2.NOME}: ${character2.PONTOS} ponto(s)`);
 
+    if(character1.PONTOS>character2.PONTOS)
+        console.log(`\n${character1.NOME}Venceu a Corrida! Parabéns! 🏆`);
+         else if (character2.PONTOS > character1.PONTOS)
+            console.log(`\n${character2.NOME}Venceu a Corrida! Parabéns! 🏆`);
+            else console.log ("A corrida terminou empatada");
+}
 
 } //função playRaceEngine significa que ao receber dois parametros e aguarda ser chamada na sequencia dentro da função main
     
@@ -245,7 +268,8 @@ async function playRaceEngine(character1, character2){
     console.log(
      `🏁🚨 Corrida entre ${player1.NOME} e ${player2.NOME} começando... \n`); 
      await playRaceEngine(player1,player2); //await é o comando para a função esperar para terminar a anterior antes de iniciar
-
+      // chamada da função para declarar o vencedor
+      await dclareWinner(player1,player2);
  })();
 
 
